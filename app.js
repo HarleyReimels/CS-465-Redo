@@ -8,10 +8,13 @@ var logger = require('morgan');
 var indexRouter = require('./app_server/routes/index');
 var usersRouter = require('./app_server/routes/users');
 var travelRouter = require('./app_server/routes/travel')
+var apiRouter = require('./app_api/routes/index');
+
 
 // Register partials directory
 hbs.registerPartials(path.join(__dirname, 'app_server', 'views', 'partials'));
 
+require('./app_api/models/db');
 
 
 var app = express();
@@ -30,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/travel', travelRouter)
+app.use('/api', apiRouter);
 app.get('/test', (req, res) => {
   res.render('test');
 });
